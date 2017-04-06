@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour {
+public class Enemy : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+	void OnCollisionEnter2D(Collision2D coll) {
+
+		var player = coll.gameObject.GetComponent<Player> ();
+		if (player != null) { // != not
+			player.GetOut ();
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }
