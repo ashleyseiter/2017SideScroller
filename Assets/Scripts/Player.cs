@@ -10,6 +10,9 @@ public class Player : MonoBehaviour {
 	public float deadZone = -3;
 	public bool canFly = false;
 
+	public weapon currentWeapon;
+
+
 	new Rigidbody2D rigidbody;
 	GM _GM ;
 	private Vector3 startingPosition;
@@ -63,6 +66,11 @@ public class Player : MonoBehaviour {
 
 		rigidbody.velocity = v;
 
+		//Attack with a weapon if you have one
+		if (Input.GetButtonDown ("Fire 1") && currentWeapon != null) {
+			currentWeapon.Attack ();
+		}
+
 
 		//check for out
 		if (transform.position.y < deadZone) {
@@ -79,16 +87,22 @@ public class Player : MonoBehaviour {
 		Debug.Log ("You're Out");
 	}
 
-	void OnCollisionEnter2D(Collision2D col){
-		air = false;
-		Debug.Log ("anything");
-	}
-
 	public void Powerup(){
 		anim.SetTrigger ("powered");
 	}
 
-	void OnCollisionExit2D(Collision2D col){
+	void OnCollisionEnter2D(Collision2D coll){
+		air = false;
+		Debug.Log ("anything");
+	
+		var weapon = coll.gameObject.GetComponent<weapon> ();
+		if (weapon != null) {
+			weapon.GetPickedUp(this);
+			currentWeapon = weapon;
+		}
+	}
+
+	void OnCollisionExit2D(Collision2D coll) {
 		air = true;
 	}
 }
