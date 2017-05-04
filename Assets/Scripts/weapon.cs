@@ -10,7 +10,7 @@ public class weapon : MonoBehaviour {
 	void Start()
 	{
 	   rigidbody2D = GetComponent<Rigidbody2D>();
-		       collider2D = GetComponent<Collider2D>();
+	   collider2D = GetComponent<Collider2D>();
 	    }
 
 	void Update()
@@ -28,7 +28,7 @@ public class weapon : MonoBehaviour {
 		rigidbody2D.isKinematic = true;
 		rigidbody2D.velocity = new Vector2 ();
 		transform.parent = player.transform;
-		transform.localScale = new Vector3 (.2f, .2f);
+		transform.localScale = new Vector3 (.02f, .02f);
 		transform.localPosition = new Vector3 (.2f, .2f);
 	}
 }

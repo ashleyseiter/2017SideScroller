@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bomb: weapon{
+public class bomb: Throwable {
 
 	public float blastRadius = 5;
-	public bool isActive = false;
 
-
-	void Update() {
-		
-	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
 
@@ -20,27 +15,7 @@ public class bomb: weapon{
 			Explode ();
 		}
 	}
-
-	public override void Attack() {
 		
-		collider2D.enabled = true;
-		rigidBody2D.isKinematic = false;
-		rigidBody2D.velocity = new Vector2(5,0);
-		transform.parent = null;
-
-	}
-
-
-	public override void GetPickedUp(Player Player) {
-
-		if (isActive) {
-			return;
-		}
-
-		isActive = true;
-		base.GetPickedUp (Player);
-	}
-
 
 	public void Explode() {
 		
