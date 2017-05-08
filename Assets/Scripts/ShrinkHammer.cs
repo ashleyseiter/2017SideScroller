@@ -2,15 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShrinkHammer : MonoBehaviour {
+public class ShrinkHammer : Throwable {
 
-	// Use this for initialization
-	void Start () {
-		
+
+	void OnCollisionEnter2D(Collision2D coll) {
+
+		var player = coll.gameObject.GetComponent<Player> ();
+
+		if (isActive && player == null) {
+			Shrink ();
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	public void Shrink () {
+
+		var enemies = FindObjectsOfType<Enemy> ();
+		foreach (var e in enemies) {
+			e.transform.localScale = new Vector3 (1.5f, 1.5f);
+		}
+		gameObject.SetActive (false);
 	}
+
+
+
 }
+

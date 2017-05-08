@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bazooka : weapon {
 
 	public GameObject rocketPrefab;
-	public float blastRadius = 1;
+	public bool isActive = false;
 
 	public override void Attack ()
 	{
@@ -15,21 +15,21 @@ public class Bazooka : weapon {
 		base.Attack ();
 	}
 
-	void OnCollisionEnter2D(Collision2D coll) {
-
+	void OnCollisionEnter2D(Collision2D coll) { 
 		var player = coll.gameObject.GetComponent<Player> ();
-		if (player != null) {
+
+		if (isActive && player == null) {
 			Shoot ();
 		}
-	}
-		public void Shoot() {
-			var enemies = FindObjectsOfType<Enemy>();
-			foreach (var e in enemies) {
-			if (Vector3.Distance (this.transform.position, e.transform.position) < blastRadius) {
-				e.gameObject.SetActive (false);
-			}
-		}
-			gameObject.SetActive (false);
-	}
+	}	
+	public void Shoot() {
+		var rocket = coll.gameObject.GetComponent<rocketPrefab> ();
+		var enemies = FindObjectsOfType<Enemy> ();
+		foreach (var e in enemies) {
+			e.gameObject.SetActive (false);
 
+		}
+		
+	}
+	
 }
