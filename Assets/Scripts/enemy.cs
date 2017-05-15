@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour {
 		if (!enabled) {
 			return;
 		}
+
 		var player = coll.gameObject.GetComponent<Player> ();
 		if (player != null) { // != not
 			player.GetOut ();

@@ -123,7 +123,16 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionExit2D(Collision2D coll) {
+	void OnCollisionExit2D(Collision2D collision) {
 		air = true;
+		if (collision.transform.tag == "MovingPlatform") {
+			transform.parent = null;
+		}
 	}
+	void OnCollisionStay2D (Collision2D collision) {
+		if (collision.transform.tag == "MovingPlatform") {
+			transform.parent = collision.transform;
+		}
+	}
+		
 }
